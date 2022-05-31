@@ -39,7 +39,7 @@ jobs:
     steps:
       - name: Close Pull Request
         id: closepullrequest
-        uses: /staticstiesactionoryx@master
+        uses: skthadani/staticstiesactionoryx@master
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_VICTORIOUS_FIELD_0F7CDCC0F }}
           action: "close"
