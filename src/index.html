@@ -14,7 +14,7 @@
           <p>Loading content from the API: <b id="message"></b></b></p>
 
 
-          <video width="320" height="240" controls>
+          <!--<video width="320" height="240" controls>
               <source src="sample-mp4-file.mp4" type="video/mp4">
               Your browser does not support the video tag.
           </video>
@@ -22,17 +22,48 @@
           <video width="320" height="240" controls>
               <source src="Sample-Video-File-For-Testing.mp4" type="video/mp4">
               Your browser does not support the video tag.
-          </video>
+          </video>-->
+
+          <div id="imgcontainer">
+              <section id="jpg">
+              </section>
+              <section id="png">
+              </section>
+          </div>
 
       </main>
   </body>
 
   <script>
     (async function () {
-      let response = await fetch(`api/message`);
-      let message = await response.json();
+        var jpgcontainer = document.getElementById('jpg');
+        var pngcontainer = document.getElementById('png');
+        var files = {
+            'jpg': 15000
+        };
+        /*
+        var files2 = {
+            'png': 200
+        };
+        */
 
-      document.querySelector("#message").innerHTML = message.text
+        for (var jpgext in files) {
+            for (var i = 0; i < files[jpgext]; i++) {
+                var jpgsrc = "images/jpg/" + (i + 1) + "." + jpgext;
+                var jpgimg = new Image();
+                jpgimg.src = jpgsrc;
+                jpgcontainer.appendChild(jpgimg);
+            }
+        }
+        /*
+        for (var pngext in files2) {
+            for (var j = 0; j < files2[pngext]; j++) {
+                var pngsrc = "images/png/" + (j + 1) + "." + pngext;
+                var pngimg = new Image();
+                pngimg.src = pngsrc;
+                pngcontainer.appendChild(pngimg);
+            }
+        }*/
     })();
   </script>
 </html>
