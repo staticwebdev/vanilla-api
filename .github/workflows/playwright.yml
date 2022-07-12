@@ -1,27 +1,34 @@
 name: Playwright Tests
+
+# Controls when the workflow will run
 on:
+  # Triggers the workflow on push or pull request and nightly
   push:
-    branches: [ main, master ]
   pull_request:
-    branches: [ main, master ]
+  schedule: 
+    # nightly
+    - cron: '0 0 * * *'
+    
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  test:
-    timeout-minutes: 60
+  playwright_tests:
+    # Runs on an ubuntu runner
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [14.x, 16.x, 18.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v2
-      with:
-        node-version: '14.x'
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
     - name: Install dependencies
       run: npm ci
-    - name: Install Playwright Browsers
+    - name: Install Playwright
       run: npx playwright install --with-deps
-    - name: Run Playwright tests
-      run: npx playwright test
-    - uses: actions/upload-artifact@v2
-      if: always()
-      with:
-        name: playwright-report
-        path: playwright-report/
-        retention-days: 30
+    - name: Run playwright tests
+      run: npm run playwright_test
