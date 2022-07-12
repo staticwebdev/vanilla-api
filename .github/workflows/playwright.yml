@@ -28,6 +28,8 @@ jobs:
     - uses: actions/setup-node@v3
     - name: Install dependencies
       run: npm ci
+    - name: Install SWA and Azure Function tool
+      run: npm install -g @azure/static-web-apps-cli azure-functions-core-tools
     - name: Install Playwright
       run: npx playwright install --with-deps
     - name: Run playwright tests
